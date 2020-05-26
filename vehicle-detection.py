@@ -1,5 +1,5 @@
 import sys
-import cv2
+from cv2 import cv2
 import numpy as np
 import traceback
 
@@ -19,14 +19,14 @@ if __name__ == '__main__':
 		input_dir  = sys.argv[1]
 		output_dir = sys.argv[2]
 
-		vehicle_threshold = .5
+		vehicle_threshold = 0.5
 
 		vehicle_weights = 'data/vehicle-detector/yolo-voc.weights'
 		vehicle_netcfg  = 'data/vehicle-detector/yolo-voc.cfg'
 		vehicle_dataset = 'data/vehicle-detector/voc.data'
 
-		vehicle_net  = dn.load_net(vehicle_netcfg, vehicle_weights, 0)
-		vehicle_meta = dn.load_meta(vehicle_dataset)
+		vehicle_net  = dn.load_net(vehicle_netcfg.encode('utf-8'), vehicle_weights.encode('utf-8'), 0)
+		vehicle_meta = dn.load_meta(vehicle_dataset.encode('utf-8'))
 
 		imgs_paths = image_files_from_folder(input_dir)
 		imgs_paths.sort()
@@ -42,9 +42,9 @@ if __name__ == '__main__':
 
 			bname = basename(splitext(img_path)[0])
 
-			R,_ = detect(vehicle_net, vehicle_meta, img_path ,thresh=vehicle_threshold)
-
-			R = [r for r in R if r[0] in ['car','bus']]
+			R,_ = detect(vehicle_net, vehicle_meta, img_path.encode('utf-8') ,thresh=vehicle_threshold)
+			
+			R = [r for r in R if r[0] in [b'car', b'bus']]
 
 			print('\t\t%d cars found' % len(R))
 

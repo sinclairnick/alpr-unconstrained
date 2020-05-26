@@ -1,10 +1,9 @@
 #!/bin/bash
 
-set -e
-
-mkdir data/lp-detector -p
-mkdir data/ocr -p
-mkdir data/vehicle-detector -p
+mkdir data
+mkdir data/lp-detector
+mkdir data/ocr
+mkdir data/vehicle-detector
 
 wget -c -N www.inf.ufrgs.br/~smsilva/alpr-unconstrained/data/lp-detector/wpod-net_update1.h5   -P data/lp-detector/
 wget -c -N www.inf.ufrgs.br/~smsilva/alpr-unconstrained/data/lp-detector/wpod-net_update1.json -P data/lp-detector/
